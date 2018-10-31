@@ -1,6 +1,7 @@
 package br.edu.materdei.backend.controller;
 
 import br.edu.materdei.backend.model.Resposta;
+import br.edu.materdei.backend.model.ResultadoMediaTO;
 import br.edu.materdei.backend.model.ResultadoTO;
 import br.edu.materdei.backend.services.RespostaService;
 import java.util.List;
@@ -35,5 +36,11 @@ public class RespostaController {
     public List<ResultadoTO> resultado(@PathVariable Long id) {
         return respostaService.resultado( id );
     }
-    
+
+    @GetMapping("/media-geral")
+    public List<ResultadoMediaTO> media() {
+        return respostaService.mediaResultado();
+    }
+
+
 }
