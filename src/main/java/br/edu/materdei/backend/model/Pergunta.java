@@ -20,5 +20,7 @@ public class Pergunta implements Serializable {
     private Long id;
     
     private String pergunta;
+
+    private Integer ativo;
     
 }
