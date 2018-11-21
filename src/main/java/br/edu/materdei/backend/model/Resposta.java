@@ -2,14 +2,8 @@ package br.edu.materdei.backend.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,10 +19,12 @@ public class Resposta implements Serializable {
     
     private String nome;
     
-     @OneToMany(mappedBy = "resposta", 
+    @OneToMany(mappedBy = "resposta",
             cascade = CascadeType.ALL, 
             orphanRemoval = true, 
             fetch = FetchType.LAZY)
     private List<RespostaPergunta> lsRespostas;
-    
+
+    private transient List<Pergunta> lsPerguntas;
+
 }

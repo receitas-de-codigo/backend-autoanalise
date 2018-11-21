@@ -1,5 +1,6 @@
 package br.edu.materdei.backend.services;
 
+import br.edu.materdei.backend.data.PerguntaData;
 import br.edu.materdei.backend.data.RespostaData;
 import br.edu.materdei.backend.data.RespostaPerguntaData;
 import br.edu.materdei.backend.model.*;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class RespostaServiceImpl implements RespostaService {
 
     @Autowired private RespostaData data;
+    @Autowired private PerguntaData perguntaData;
     @Autowired private RespostaPerguntaData respostaPerguntaData;
     
     @Override
@@ -23,7 +25,17 @@ public class RespostaServiceImpl implements RespostaService {
 
     @Override
     public Resposta save(Resposta resposta) {
-        resposta.getLsRespostas().forEach(item -> item.setResposta(resposta));
+        resposta.setLsRespostas( new ArrayList<>() );
+
+        resposta.getLsPerguntas().forEach(pergunta -> {
+            RespostaPergunta rp = new RespostaPergunta();
+            rp.setPontos( pergunta.getPontos() );
+            rp.setResposta(resposta);
+            rp.setPergunta( perguntaData.findById( pergunta.getId() ).get() );
+
+            resposta.getLsRespostas().add( rp );
+        });
+
         return data.save(resposta);
     }
 

@@ -28,8 +28,8 @@ public class RespostaController {
     }
     
     @PostMapping
-    public Resposta save(@RequestBody Resposta resposta) {
-        return respostaService.save( resposta );
+    public List<ResultadoTO> save(@RequestBody Resposta resposta) {
+        return respostaService.resultado( respostaService.save( resposta ).getId() );
     }
 
     @GetMapping("/{id}")
